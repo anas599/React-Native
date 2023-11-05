@@ -41,7 +41,6 @@ export const Stage1 = () => {
               <Button
                 title="Submit"
                 type="solid"
-                // onPress={() => alert("خره عليك")}
                 onPress={handleSubmit}
                 buttonStyle={{ marginHorizontal: 20, marginTop: 20 }}
                 errors={errors}
