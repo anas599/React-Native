@@ -10,13 +10,8 @@ function App() {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text>Open up1</Text>
-        <Text>Open up2</Text>
-        <Text>Open up3</Text>
-        <Text>Below this</Text>
         {myContext.state.stage === 1 ? <Stage1 /> : <Stage2 />}
 
-        <Text>Above this</Text>
         <StatusBar style="auto" />
       </View>
     </ScrollView>
