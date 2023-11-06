@@ -1,10 +1,14 @@
-import React, { Component } from "react";
+import React, { useContext, Component } from "react";
 import { StyleSheet, View } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { ListItem, Text } from "react-native-elements";
 import { Input, Icon, Button } from "@rneui/themed";
+import { MyContext } from "./context";
 export const Stage1 = () => {
+  const myContext = useContext(MyContext);
+
+  console.log(myContext);
   return (
     <>
       <Formik
@@ -12,11 +16,15 @@ export const Stage1 = () => {
         validationSchema={yup
           .object({ player: yup.string().required() })
           .shape({
-            player: yup.string().min(3, "more than 3").max(10, "less than 10"),
+            player: yup
+              .string()
+              .min(3, "more than 3")
+              .max(10, "less than 10")
+              .required("fill it the name idiot"),
           })
           .required("Required")}
         onSubmit={(values, { resetForm }) => {
-          alert("خره عليــــك " + values.player);
+          myContext.addPlayer(values.player);
           resetForm();
         }}
       >
@@ -37,20 +45,54 @@ export const Stage1 = () => {
                 onChangeText={handleChange("player")}
                 onBlur={handleBlur("player")}
                 value={values.player}
+                renderErrorMessage={errors.player && touched.player}
+                errorMessage={errors.player}
+                errorStyle={{ color: "red" }}
               />
               <Button
                 title="Submit"
                 type="solid"
                 onPress={handleSubmit}
-                buttonStyle={{ marginHorizontal: 20, marginTop: 20 }}
-                errors={errors}
+                buttonStyle={styles.button}
               />
             </>
             <Text>Who is the LOOSER!</Text>
           </>
         )}
       </Formik>
+      <View style={{ padding: 20, width: "100%" }}>
+        {myContext.state.player && myContext.state.player?.length > 0 ? (
+          myContext.state.player.map((player, i) => (
+            <ListItem
+              key={i}
+              bottomDivider
+              onLongPress={() => myContext.removePlayer(player)}
+            >
+              <ListItem.Chevron />
+              <ListItem.Title>{player}</ListItem.Title>
+            </ListItem>
+          ))
+        ) : (
+          <Text
+            style={{
+              textAlign: "center",
+              backgroundColor: "whitesmoke",
+            }}
+          >
+            Add a player
+          </Text>
+        )}
+      </View>
     </>
   );
 };
+const styles = StyleSheet.create({
+  button: {
+    marginHorizontal: 20,
+    marginTop: 20,
+    backgroundColor: "red",
+    borderStartEndRadius: 20,
+    borderTopStartRadius: 20,
+  },
+});
 export default Stage1;
