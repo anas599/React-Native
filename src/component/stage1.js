@@ -20,7 +20,7 @@ export const Stage1 = () => {
               .string()
               .min(3, "more than 3")
               .max(10, "less than 10")
-              .required("fill it the name idiot"),
+              .required("fill in the name idiot"),
           })
           .required("Required")}
         onSubmit={(values, { resetForm }) => {
@@ -62,16 +62,24 @@ export const Stage1 = () => {
       </Formik>
       <View style={{ padding: 20, width: "100%" }}>
         {myContext.state.player && myContext.state.player?.length > 0 ? (
-          myContext.state.player.map((player, i) => (
-            <ListItem
-              key={i}
-              bottomDivider
-              onLongPress={() => myContext.removePlayer(player)}
-            >
-              <ListItem.Chevron />
-              <ListItem.Title>{player}</ListItem.Title>
-            </ListItem>
-          ))
+          <>
+            {myContext.state.player.map((player, i) => (
+              <ListItem
+                key={i}
+                bottomDivider
+                onLongPress={() => myContext.removePlayer(player)}
+              >
+                <ListItem.Chevron />
+                <ListItem.Title>{player}</ListItem.Title>
+              </ListItem>
+            ))}
+            <Button
+              title="Choose the looser"
+              type="solid"
+              onPress={() => myContext.nextHandler()}
+              buttonStyle={styles.button}
+            />
+          </>
         ) : (
           <Text
             style={{
@@ -79,10 +87,10 @@ export const Stage1 = () => {
               backgroundColor: "whitesmoke",
             }}
           >
-            Add a player
+            No players to display
           </Text>
         )}
-      </View>
+      </View>{" "}
     </>
   );
 };
