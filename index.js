@@ -2,9 +2,12 @@ import { registerRootComponent } from "expo";
 import React from "react";
 import { MyProvider } from "./src/component/context";
 import App from "./App";
+import Toast from "react-native-toast-message";
+
 const provider = () => (
   <MyProvider>
     <App />
+    <Toast ref={(ref) => Toast.setRef(ref)} />
   </MyProvider>
 );
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
