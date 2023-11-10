@@ -1,10 +1,13 @@
-import React, { Component } from "react";
+import React, { useContext, Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
-
+import { MyContext } from "./context";
 export const Stage2 = () => {
+  const myContext = useContext(MyContext);
+
   return (
     <View>
-      <Text>stage two</Text>
+      <Text>the looser is two</Text>
+      <Text>{myContext.state.result}</Text>
     </View>
   );
 };

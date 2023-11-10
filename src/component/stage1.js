@@ -8,7 +8,6 @@ import { MyContext } from "./context";
 export const Stage1 = () => {
   const myContext = useContext(MyContext);
 
-  console.log(myContext);
   return (
     <>
       <Formik

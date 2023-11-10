@@ -34,8 +34,15 @@ class MyProvider extends Component {
         bottomOffset: 40,
       });
     } else {
-      this.setState({ stage: 2 });
+      this.setState({ stage: 2 }, () => {
+        this.generateLooser();
+      });
     }
+  };
+  generateLooser = () => {
+    const { player } = this.state;
+    const random = Math.floor(Math.random() * player.length);
+    this.setState({ result: player[random] });
   };
   render() {
     return (
